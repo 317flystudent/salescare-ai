@@ -509,7 +509,7 @@ def build_cover(doc):
         ("课程名称", "大数据机器学习"),
         ("项目类型", "小组项目 / 全栈 AI 聊天机器人"),
         ("项目周期", "10 周"),
-        ("小组成员/学号", "待填写"),
+        ("小组成员/学号", "提交前请填写真实姓名、学号和小组成员"),
         ("技术栈", "原生 Web 前端、Python HTTP API、SQLite/MySQL、订单演示、人工工单、DeepSeek API 可选接入"),
         ("本地演示 URL", "http://127.0.0.1:5173"),
         ("后端 API URL", "http://127.0.0.1:8000"),
@@ -567,7 +567,21 @@ def build_report():
         [1700, 3600, 4060],
         caption="市场痛点与项目机会",
     )
-    add_para(doc, "1.1 目标用户画像", style="Heading 2")
+    add_para(doc, "1.1 现有 AI 客服优劣与差异化定位", style="Heading 2")
+    add_table(
+        doc,
+        ["对比维度", "现有 AI 客服常见表现", "本项目差异化设计"],
+        [
+            ("知识准确性", "通用客服机器人容易给出泛化回答，售后政策和订单状态容易失真。", "采用品牌知识库优先检索，订单状态只从 demo_orders 表查询，避免编造。"),
+            ("业务闭环", "部分演示只停留在问答，缺少订单、工单和后台管理。", "把买家聊天、订单查询、转人工工单、商家后台和 MySQL 数据表串成完整闭环。"),
+            ("演示稳定性", "完全依赖外部大模型时，课堂网络或 Key 异常会影响展示。", "DeepSeek 可选接入，同时保留本地检索兜底，保证无 Key 时也能完成核心演示。"),
+            ("可维护性", "知识更新依赖开发人员改代码。", "商家后台提供知识库 CRUD，运营人员可直接维护标准问答。"),
+            ("边界意识", "可能承诺退款、检测结论或库存信息。", "提示词明确禁止编造订单、价格、库存和检测结论，复杂争议转人工。"),
+        ],
+        [1800, 3900, 3660],
+        caption="现有 AI 客服对比与本项目定位",
+    )
+    add_para(doc, "1.2 目标用户画像", style="Heading 2")
     add_bullets(
         doc,
         [
@@ -577,7 +591,7 @@ def build_report():
             "客服/管理员：需要维护知识库、查看会话历史并把复杂问题转人工。",
         ],
     )
-    add_para(doc, "1.2 核心功能定位", style="Heading 2")
+    add_para(doc, "1.3 核心功能定位", style="Heading 2")
     add_table(
         doc,
         ["功能", "面向场景", "实现方式"],
@@ -752,7 +766,7 @@ def build_report():
     add_para(doc, "5. 系统测试与部署", style="Heading 1")
     add_para(
         doc,
-        "本地测试采用 API 烟测、浏览器交互测试和移动端视口检查。由于生产部署需要云服务器、域名或平台账号，本报告将生产 URL 标记为待部署后填写；项目代码已提供部署步骤和环境变量说明。",
+        "项目已完成本地测试、MySQL 课堂演示测试和腾讯云公有云部署验收。测试范围覆盖 API 健康检查、聊天问答、订单查询、转人工工单、商家后台、知识库加载、桌面端与移动端界面。生产环境已经通过 Nginx 对外发布，公开访问地址为 http://1.14.184.75。",
     )
     add_table(
         doc,
@@ -782,15 +796,18 @@ def build_report():
         ],
     )
     add_para(doc, "5.2 部署方案", style="Heading 2")
-    add_numbered(
+    add_table(
         doc,
+        ["部署项", "当前配置", "验收结果"],
         [
-            "准备云服务器或平台环境，安装 Python 3.10+。",
-            "上传项目代码，设置 DEEPSEEK_API_KEY、CHATBOT_HOST、CHATBOT_PORT、CHATBOT_DB 等环境变量。",
-            "后端运行 backend/server.py，前端可用 Nginx、静态托管或 python -m http.server 发布。",
-            "把前端 API 地址改为后端公网地址，并在页面设置中保存。",
-            "完成联调后，将生产环境 URL 和代码仓库地址补入本报告首页。",
+            ("云服务器", "腾讯云轻量应用服务器，Ubuntu 22.04，2 核 CPU / 2GB 内存 / 40GB 系统盘。", "运行正常。"),
+            ("后端服务", "systemd 管理 salescare-ai.service，监听 127.0.0.1:8000。", "健康检查返回 ok。"),
+            ("数据库", "MySQL 8.0，salescare_ai 数据库，包含 5 张核心表和 12 条知识库数据。", "SHOW TABLES 与 COUNT 验证通过。"),
+            ("前端发布", "Nginx 托管 /opt/salescare-ai/frontend，并将 /api/ 反向代理到后端。", "公网页面可访问。"),
+            ("访问方式", "Web 应用生产环境 URL：http://1.14.184.75；代码仓库：https://github.com/317flystudent/salescare-ai。", "已写入报告首页和 README。"),
         ],
+        [1700, 5100, 2560],
+        caption="公有云部署环境与验收结果",
     )
 
     add_para(doc, "6. 项目管理与迭代记录", style="Heading 1")
@@ -808,6 +825,20 @@ def build_report():
         ],
         [1300, 2200, 5860],
         caption="10 周项目计划",
+    )
+    add_para(doc, "6.1 更新日志与提交记录", style="Heading 2")
+    add_table(
+        doc,
+        ["记录类型", "内容", "对应证据"],
+        [
+            ("初始提交", "Initial course project submission：提交前后端源码、数据库脚本、README、课堂演示文档和初版报告。", "Git 提交 636e005。"),
+            ("地址补充", "Add repository URL to deliverables：在 README 和报告首页补充 GitHub 仓库地址。", "Git 提交 6e048a9。"),
+            ("证据截图", "Add GitHub evidence screenshots to report：报告附录补充 GitHub 仓库和 README 地址截图。", "Git 提交 3dbe1a0。"),
+            ("部署记录", "整理云服务器配置、MySQL 初始化、systemd 后端服务、Nginx 代理和公网访问截图。", "报告附录 B、docs/cloud_deploy_evidence.md。"),
+            ("自检记录", "根据课程测评要求形成符合性检查表，标记已完成项和需人工填写项。", "docs/requirements_compliance_check.md。"),
+        ],
+        [1800, 5200, 2360],
+        caption="项目管理与更新日志",
     )
     add_para(doc, "7. 总结与答辩准备", style="Heading 1")
     add_para(

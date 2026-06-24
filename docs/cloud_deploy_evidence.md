@@ -194,6 +194,5 @@ DeepSeek API Key
 
 ```text
 Web 应用生产环境 URL：http://1.14.184.75
+项目开源代码仓库地址：https://github.com/317flystudent/salescare-ai
 ```
-
-开源代码仓库地址仍需上传 GitHub 或 Gitee 后填写。

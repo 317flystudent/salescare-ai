@@ -14,6 +14,7 @@ reports/rendered/
 reports/outputs/rendered_report_pages/
 reports/generated_assets/
 reports/outputs/*.pdf
+docs/assessment_requirements*
 mathtype_help_extract/
 mathtype_vba_export/
 pdf_pages_trial_clean2/

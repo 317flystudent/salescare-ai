@@ -103,6 +103,10 @@ http://你的服务器公网IP
 
 本项目当前部署验收记录见：[公有云部署验收记录](docs/cloud_deploy_evidence.md)。
 
+提交前自检记录见：[测评要求符合性检查表](docs/requirements_compliance_check.md)。
+
+项目迭代记录见：[项目更新日志](docs/project_update_log.md)。
+
 ## MySQL 课堂演示
 
 如果老师要查看 MySQL 表和现场对话写入记录，请按 [课堂演示流程](docs/classroom_demo.md) 操作。
