@@ -886,6 +886,18 @@ def build_report():
             "浏览器通过公网地址访问悦行销售/售后 AI 助手，并完成产品推荐类自然语言对话。当前课程演示环境使用 HTTP，正式上线可进一步配置 HTTPS 证书。",
             6.3,
         ),
+        (
+            "B.8 开源代码仓库上传完成",
+            ASSET_DIR / "deployment_screenshots" / "08_github_repository_files.png",
+            "GitHub 仓库已成功上传项目代码，包含 backend、frontend、database、docs、reports、scripts 等核心目录，并保留两次提交记录。",
+            6.3,
+        ),
+        (
+            "B.9 README 项目地址展示",
+            ASSET_DIR / "deployment_screenshots" / "09_github_readme_project_urls.png",
+            "仓库 README 中展示了 Web 应用生产环境 URL 与开源代码仓库地址，便于老师直接检查线上系统和源码。",
+            6.3,
+        ),
     ]
     for title, image_path, description, width in deployment_screenshots:
         if not image_path.exists():
