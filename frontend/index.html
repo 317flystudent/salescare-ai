@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>悦行销售/售后 AI 助手</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="buyer-mode">
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="工作区导航">
+        <div class="brand">
+          <img src="assets/brand-mark.svg" alt="悦行 AI 标识" class="brand-mark" />
+          <div>
+            <h1>商家管理后台</h1>
+            <p>订单汇总 · 知识库 · 会话工单</p>
+          </div>
+        </div>
+
+        <button class="secondary-action admin-exit" id="buyerViewBtn" type="button">返回买家页</button>
+
+        <section class="status-panel" aria-label="服务状态">
+          <div class="status-row">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">正在连接后端</span>
+          </div>
+          <div class="session-box">
+            <span>当前会话</span>
+            <strong id="sessionId">未建立</strong>
+          </div>
+        </section>
+
+        <section class="quick-panel" aria-label="售后入口">
+          <h2>售后入口</h2>
+          <button class="quick-question" data-question="1 产品咨询：我想了解悦行 S1 和 Pro 的区别">
+            <span class="icon">1</span>
+            产品咨询
+          </button>
+          <button class="quick-question" data-question="2 订单查询：我想查询订单进度">
+            <span class="icon">2</span>
+            订单查询
+          </button>
+          <button class="quick-question" data-question="3 退换货：我想了解七天无理由退换规则">
+            <span class="icon">3</span>
+            退换货
+          </button>
+          <button class="quick-question" data-question="4 故障排查：我的车无法启动，应该怎么排查？">
+            <span class="icon">4</span>
+            故障排查
+          </button>
+          <button class="quick-question" data-question="5 投诉升级：我很生气，维修太慢了，怎么处理？">
+            <span class="icon">5</span>
+            投诉升级
+          </button>
+          <button class="quick-question" data-question="6 转人工：我要联系人工客服">
+            <span class="icon">人</span>
+            转人工
+          </button>
+        </section>
+      </aside>
+
+      <main class="chat-area">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Yuexing After-Sales</p>
+            <h2>悦行官方售后客服</h2>
+          </div>
+          <div class="topbar-actions">
+            <button class="secondary-action" id="adminViewBtn" type="button">商家后台</button>
+            <button class="icon-button" id="newSessionBtn" title="新建会话" aria-label="新建会话">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <section class="service-dock" aria-label="自助服务入口">
+          <button class="service-chip" data-question="1 产品咨询：我想了解悦行 S1 和 Pro 的区别">1 产品咨询</button>
+          <button class="service-chip" data-question="2 订单查询：我想查询订单进度">2 订单查询</button>
+          <button class="service-chip" data-question="3 退换货：我想了解七天无理由退换规则">3 退换货</button>
+          <button class="service-chip" data-question="4 故障排查：我的车无法启动，应该怎么排查？">4 故障排查</button>
+          <button class="service-chip" data-question="5 投诉升级：我很生气，维修太慢了，怎么处理？">5 投诉升级</button>
+          <button class="service-chip" data-question="6 转人工：我要联系人工客服">6 转人工</button>
+        </section>
+
+        <section class="messages" id="messages" aria-live="polite"></section>
+
+        <form class="composer" id="chatForm">
+          <textarea id="messageInput" rows="2" placeholder="输入订单号或售后问题，例如：YX202606090001" required></textarea>
+          <button class="handoff-button" type="button" id="handoffBtn" title="转人工客服">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12a8 8 0 0 1 16 0" />
+              <path d="M4 13v3a2 2 0 0 0 2 2h1v-7H6a2 2 0 0 0-2 2Z" />
+              <path d="M20 13v3a2 2 0 0 1-2 2h-1v-7h1a2 2 0 0 1 2 2Z" />
+              <path d="M12 20h2a4 4 0 0 0 4-4" />
+            </svg>
+            转人工
+          </button>
+          <button class="send-button" type="submit" title="发送">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m22 2-7 20-4-9-9-4 20-7Z" />
+              <path d="M22 2 11 13" />
+            </svg>
+            发送
+          </button>
+        </form>
+      </main>
+
+      <aside class="inspector" aria-label="知识库与会话">
+        <div class="admin-heading">
+          <p class="eyebrow">Merchant Admin</p>
+          <h2>商家后台管理</h2>
+        </div>
+
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="overview" role="tab">概览</button>
+          <button class="tab" data-tab="knowledge" role="tab">知识库</button>
+          <button class="tab" data-tab="sessions" role="tab">会话</button>
+          <button class="tab" data-tab="orders" role="tab">订单</button>
+          <button class="tab" data-tab="handoff" role="tab">工单</button>
+        </div>
+
+        <section class="tab-page active" id="overviewTab">
+          <div class="summary-grid" id="summaryGrid"></div>
+          <section class="admin-section">
+            <div class="section-title">
+              <h3>买家订单信息</h3>
+              <button class="secondary-action" id="refreshOverviewBtn">刷新</button>
+            </div>
+            <div class="buyer-order-table" id="buyerOrderTable"></div>
+          </section>
+          <section class="admin-section">
+            <h3>订单信息汇总</h3>
+            <div class="summary-list" id="orderSummaryList"></div>
+          </section>
+        </section>
+
+        <section class="tab-page" id="knowledgeTab">
+          <form class="kb-form" id="knowledgeForm">
+            <input type="hidden" id="knowledgeId" />
+            <label>
+              分类
+              <input id="kbCategory" placeholder="例如：故障排查" required />
+            </label>
+            <label>
+              标题
+              <input id="kbTitle" placeholder="知识条目标题" required />
+            </label>
+            <label>
+              标准问题
+              <textarea id="kbQuestion" rows="2" placeholder="用户可能怎样提问？" required></textarea>
+            </label>
+            <label>
+              标准答案
+              <textarea id="kbAnswer" rows="4" placeholder="客服标准回复" required></textarea>
+            </label>
+            <label>
+              关键词
+              <input id="kbKeywords" placeholder="逗号分隔，例如：保修,电池" />
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="primary-action">保存</button>
+              <button type="button" class="secondary-action" id="resetKnowledgeBtn">清空</button>
+            </div>
+          </form>
+          <div class="kb-list" id="knowledgeList"></div>
+        </section>
+
+        <section class="tab-page" id="sessionsTab">
+          <div class="session-list" id="sessionList"></div>
+        </section>
+
+        <section class="tab-page" id="ordersTab">
+          <div class="order-tools">
+            <label class="setting-field">
+              演示商品
+              <select id="demoProductSelect"></select>
+            </label>
+            <button class="primary-action" id="createOrderBtn">生成演示订单</button>
+            <button class="secondary-action" id="refreshOrdersBtn">刷新订单</button>
+          </div>
+          <p class="hint">生成后点击“发送订单号”，机器人会像电商售后一样查询进度。</p>
+          <div class="order-list" id="orderList"></div>
+        </section>
+
+        <section class="tab-page" id="handoffTab">
+          <div class="handoff-tools">
+            <button class="primary-action" id="createHandoffBtn">模拟转人工</button>
+            <button class="secondary-action" id="refreshHandoffBtn">刷新工单</button>
+          </div>
+          <p class="hint">用户输入“转人工”后会创建人工工单，课堂演示时可在这里和 MySQL 表中同时查看。</p>
+          <div class="ticket-list" id="ticketList"></div>
+        </section>
+      </aside>
+    </div>
+
+    <script src="app.js?v=20260610-split-admin"></script>
+  </body>
+</html>
