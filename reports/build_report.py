@@ -514,14 +514,14 @@ def build_cover(doc):
         ("本地演示 URL", "http://127.0.0.1:5173"),
         ("后端 API URL", "http://127.0.0.1:8000"),
         ("生产环境 URL", "http://1.14.184.75"),
-        ("开源代码仓库", "待上传 GitHub/Gitee 后填写"),
+        ("开源代码仓库", "https://github.com/317flystudent/salescare-ai"),
         ("报告日期", "2026 年 6 月 10 日"),
     ]
     add_table(doc, ["项目", "内容"], rows, [1900, 7460], caption="首页交付信息")
     add_callout(
         doc,
         "说明",
-        "本项目已完成可本地访问和交互的 Web 应用、后端 API、SQLite/MySQL 双模式持久化、知识库检索、演示订单查询流程与 DeepSeek API 接入代码。真实生产 URL、代码仓库地址和大模型 API Key 需要在部署和提交前由项目成员补充。",
+        "本项目已完成可本地访问和交互的 Web 应用、后端 API、SQLite/MySQL 双模式持久化、知识库检索、演示订单查询流程与 DeepSeek API 接入代码。生产环境 URL 和开源代码仓库地址已补充；DeepSeek API Key 仅通过环境变量配置，不写入代码仓库或报告正文。",
     )
     doc.add_page_break()
 
@@ -817,7 +817,7 @@ def build_report():
     add_callout(
         doc,
         "提交前检查",
-        "请在部署后把报告首页的生产环境 URL 和代码仓库地址替换为真实地址；如需展示 DeepSeek 真实调用，请在演示机器上配置 DEEPSEEK_API_KEY。",
+        "报告首页已补充生产环境 URL 和代码仓库地址；如需展示 DeepSeek 真实调用，请在演示机器或云服务器环境变量中配置 DEEPSEEK_API_KEY，避免把密钥写入仓库。",
     )
 
     add_para(doc, "附录 A：示例对话", style="Heading 1")

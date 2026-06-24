@@ -9,7 +9,7 @@
 ## 项目地址
 
 - Web 应用生产环境 URL：<http://1.14.184.75>
-- 开源代码仓库地址：上传 GitHub/Gitee 后在这里补充。
+- 开源代码仓库地址：<https://github.com/317flystudent/salescare-ai>
 
 ## 本地运行
 
@@ -91,7 +91,6 @@ DEEPSEEK_TIMEOUT=15
 
 ## 后续需要你补充
 
-- 开源代码仓库地址：上传 GitHub/Gitee 后，把仓库地址填入报告首页。
 - 大模型 API Key：演示真实大模型回答时，需要你自行申请并在环境变量中配置。
 
 ## 公有云部署
